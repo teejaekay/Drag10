@@ -1,5 +1,5 @@
 # Drag10
-iOS 2D endless arcade game
+2D endless arcade iOS game
 
 Drag10 is the first project I made on my own and where I learned most of the basics of programming.
 **I completed this project before learning about Object-Oriented Programming and other 
