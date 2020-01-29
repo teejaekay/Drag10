@@ -1,10 +1,3 @@
-//
-//  HelpScene.swift
-//  drag10.2
-//
-//  Created by Taylor Kelly on 11/14/18.
-//  Copyright © 2018 Taylor Kelly. All rights reserved.
-//
 
 import Foundation
 import SpriteKit
