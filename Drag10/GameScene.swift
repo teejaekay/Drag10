@@ -1,10 +1,3 @@
-//
-//  GameScene.swift
-//  drag10.2
-//
-//  Created by Taylor Kelly on 9/27/18.
-//  Copyright © 2018 Taylor Kelly. All rights reserved.
-//
 
 import SpriteKit
 import GameplayKit
@@ -129,9 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             highscore = highScore.value(forKey: "highscore") as! Int
         }
-        //print(highscore)
         
-        //clearHigh()
     }
     
     func clearHigh()
@@ -170,7 +161,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.isUserInteractionEnabled = false
         delay.run(SKAction.moveBy(x: 0, y: 0.01, duration: 1.0), completion: touchEnabled)
-       // reason.run(SKAction.moveBy(x: 0, y: 0.01, duration: 1), completion: reasonBlink)
         
         if score > highscore
         {
@@ -180,8 +170,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let highScore = UserDefaults.standard
             highScore.set(highscore, forKey: "highscore")
             highScore.synchronize()
-            
-            
         }
         
     }
@@ -215,23 +203,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameOverText.run(SKAction.move(to: CGPoint(x: 0, y: 850), duration: 0.5))
         earth.run(SKAction.move(to: CGPoint(x: 0, y: -400), duration: 0.5))
         
-        
         spawnPlayer()
-        
-        
+    
     }
     
     func delaySpawn()
     {
-        
         delay.run(SKAction.fadeOut(withDuration: 0.0575), completion: spawnPlayer)
-        
     }
     
     func blinking()
     {
         tapTo.run(SKAction.fadeIn(withDuration: 1), completion: blink)
-        
     }
     func blink()
     {
@@ -240,29 +223,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func goHome()
     {
-        
         let homeScene = HomeScene(fileNamed: "HomeScene")
         homeScene?.scaleMode = .aspectFill
         self.view?.presentScene(homeScene!, transition: SKTransition.fade(withDuration: 0.1))
-        
     }
-    
-    
-    
-    func didBegin(_ contact: SKPhysicsContact)
-    {
-        print("we have contact")
-        canTouch = false
-        self.removeChildren(in: [redPlayer as SKNode])
-        self.removeChildren(in: [yellowPlayer as SKNode])
-        self.removeChildren(in: [greenPlayer as SKNode])
-        self.removeChildren(in: [bluePlayer as SKNode])
-        
-        stopRotating()
-        spawnPlayer()
-    }
-    
-    
     
     func spawnPlayer()
     {
@@ -282,11 +246,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             {
                 starNum = 1
                 bluePlayer.size = CGSize(width: 275, height: 275)
-                //bluePlayer.position = CGPoint(x: 0, y: 0)
                 bluePlayer.position = CGPoint(x: Int .random(in: -150...150), y: Int .random(in: -450...450))
                 bluePlayer.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(7), duration: 1)))
-                //bluePlayer.physicsBody = SKPhysicsBody(circleOfRadius: 225)
-                //bluePlayer.physicsBody?.collisionBitMask = 1
                 bluePlayer.physicsBody?.affectedByGravity = false
             
                 self.addChild(bluePlayer)
@@ -298,10 +259,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             {
                 starNum = 2
                 redPlayer.size = CGSize(width: 275, height: 275)
-                //redPlayer.position = CGPoint(x: 0, y: 0)
                 redPlayer.position = CGPoint(x: Int .random(in: -150...150), y: Int .random(in: -450...450))
                 redPlayer.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(7), duration: 1)))
-                //redPlayer.physicsBody = SKPhysicsBody(circleOfRadius: 225)
                 redPlayer.physicsBody?.collisionBitMask = 1
                 redPlayer.physicsBody?.affectedByGravity = false
             
@@ -314,10 +273,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             {
                 starNum = 3
                 greenPlayer.size = CGSize(width: 275, height: 275)
-                //greenPlayer.position = CGPoint(x: 0, y: 0)
                 greenPlayer.position = CGPoint(x: Int .random(in: -150...150), y: Int .random(in: -450...450))
                 greenPlayer.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(7), duration: 1)))
-                //greenPlayer.physicsBody = SKPhysicsBody(circleOfRadius: 225)
                 greenPlayer.physicsBody?.collisionBitMask = 1
                 greenPlayer.physicsBody?.affectedByGravity = false
             
@@ -329,10 +286,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             {
                 starNum = 4
                 yellowPlayer.size = CGSize(width: 275, height: 275)
-                //yellowPlayer.position = CGPoint(x: 0, y: 0)
                 yellowPlayer.position = CGPoint(x: Int .random(in: -150...150), y: Int .random(in: -450...450))
                 yellowPlayer.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(7), duration: 1)))
-                //yellowPlayer.physicsBody = SKPhysicsBody(circleOfRadius: 225)
                 yellowPlayer.physicsBody?.collisionBitMask = 1
                 yellowPlayer.physicsBody?.affectedByGravity = false
         
@@ -359,47 +314,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         plus10 = true
         self.removeChildren(in: [bluePlayer as SKNode])
         canTouch = false
-        //print("point")
         stopRotating()
         delaySpawn()
-        //spawnPlayer()
     }
     
     func red()
     {
-       
         score += 1
         plus10 = true
         self.removeChildren(in: [redPlayer as SKNode])
         canTouch = false
-       // print("point")
         stopRotating()
         delaySpawn()
-        //spawnPlayer()
     }
     func green()
     {
-       
         score += 1
         plus10 = true
         self.removeChildren(in: [greenPlayer as SKNode])
         canTouch = false
-        //print("point")
         stopRotating()
         delaySpawn()
-        //spawnPlayer()
     }
     func yellow()
     {
-       
         score += 1
         plus10 = true
         self.removeChildren(in: [yellowPlayer as SKNode])
         canTouch = false
-        //print("point")
         stopRotating()
         delaySpawn()
-        //spawnPlayer()
     }
     
     func stopRotating()
@@ -466,26 +410,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 {
                     touchLocation2 = touch.location(in: self)
             
-                if redPlayer.contains(touchLocation2)
-                {
-                dragging = true
-                }
-                if dragging == true
-                {
-                redPlayer.position.x = touchLocation2.x
-                redPlayer.position.y = touchLocation2.y
-                }
-                if starNum == 2 && redPlayer.position.y < -580
-                {
-                    red()
-                }
-                if starNum == 2 && redPlayer.position.y > 610 || redPlayer.position.x > 335 || redPlayer.position.x < -255
-                {
-                    wrongColor = true
-                    gameover()
-                    canTouch = false
-                    print("2 gameover")
-                }
+                    if redPlayer.contains(touchLocation2)
+                    {
+                        dragging = true
+                    }
+                    if dragging == true
+                    {
+                        redPlayer.position.x = touchLocation2.x
+                        redPlayer.position.y = touchLocation2.y
+                    }
+                    if starNum == 2 && redPlayer.position.y < -580
+                    {
+                        red()
+                    }
+                    if starNum == 2 && redPlayer.position.y > 610 || redPlayer.position.x > 335 || redPlayer.position.x < -255
+                    {
+                        wrongColor = true
+                        gameover()
+                        canTouch = false
+                        print("2 gameover")
+                    }
                 }
                
                 
@@ -494,26 +438,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 {
                     touchLocation1 = touch.location(in: self)
                 
-                if bluePlayer.contains(touchLocation1)
-                {
-                    dragging = true
-                }
-                if dragging
-                {
-                    bluePlayer.position.x = touchLocation1.x
-                    bluePlayer.position.y = touchLocation1.y
-                }
-                if starNum == 1 && bluePlayer.position.y > 585
-                {
-                    blue()
-                }
-                if starNum == 1 && bluePlayer.position.y < -600 || bluePlayer.position.x > 335 || bluePlayer.position.x < -255
-                {
-                    wrongColor = true
-                    gameover()
-                    canTouch = false
-                    print("1 gameover")
-                }
+                    if bluePlayer.contains(touchLocation1)
+                    {
+                        dragging = true
+                    }
+                    if dragging
+                    {
+                        bluePlayer.position.x = touchLocation1.x
+                        bluePlayer.position.y = touchLocation1.y
+                    }
+                    if starNum == 1 && bluePlayer.position.y > 585
+                    {
+                        blue()
+                    }
+                    if starNum == 1 && bluePlayer.position.y < -600 || bluePlayer.position.x > 335 || bluePlayer.position.x < -255
+                    {
+                        wrongColor = true
+                        gameover()
+                        canTouch = false
+                        print("1 gameover")
+                    }
                 }
                 
                 if starNum == 3
@@ -521,26 +465,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     touchLocation3 = touch.location(in: self)
                 
                 
-                if greenPlayer.contains(touchLocation3)
-                {
-                    dragging = true
-                }
-                if dragging == true
-                {
-                    greenPlayer.position.x = touchLocation3.x
-                    greenPlayer.position.y = touchLocation3.y
-                }
-                if starNum == 3 && greenPlayer.position.x > 285
-                {
-                    green()
-                }
-                if starNum == 3 && greenPlayer.position.x < -255 || greenPlayer.position.y > 610 || greenPlayer.position.y < -600
-                {
-                    print("3 gameover")
-                    canTouch = false
-                    wrongColor = true
-                    gameover()
-                } 
+                    if greenPlayer.contains(touchLocation3)
+                    {
+                        dragging = true
+                    }
+                    if dragging == true
+                    {
+                        greenPlayer.position.x = touchLocation3.x
+                        greenPlayer.position.y = touchLocation3.y
+                    }
+                    if starNum == 3 && greenPlayer.position.x > 285
+                    {
+                        green()
+                    }
+                    if starNum == 3 && greenPlayer.position.x < -255 || greenPlayer.position.y > 610 ||     greenPlayer.position.y < -600
+                    {
+                        print("3 gameover")
+                        canTouch = false
+                        wrongColor = true
+                        gameover()
+                    }
                 
                 }
                 
@@ -548,26 +492,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 {
                     touchLocation4 = touch.location(in: self)
                 
-                if yellowPlayer.contains(touchLocation4)
-                {
-                    dragging = true
-                }
-                if dragging == true
-                {
-                    yellowPlayer.position.x = touchLocation4.x
-                    yellowPlayer.position.y = touchLocation4.y
-                }
-                if starNum == 4 && yellowPlayer.position.x < -285
-                {
-                    yellow()
-                }
-                if starNum == 4 && yellowPlayer.position.x > 335 || yellowPlayer.position.y > 610 || yellowPlayer.position.y < -600
-                {
-                    print("4 gameover")
-                    canTouch = false
-                    wrongColor = true
-                    gameover()
-                }
+                    if yellowPlayer.contains(touchLocation4)
+                    {
+                        dragging = true
+                    }
+                    if dragging == true
+                    {
+                        yellowPlayer.position.x = touchLocation4.x
+                        yellowPlayer.position.y = touchLocation4.y
+                    }
+                    if starNum == 4 && yellowPlayer.position.x < -285
+                    {
+                        yellow()
+                    }
+                    if starNum == 4 && yellowPlayer.position.x > 335 || yellowPlayer.position.y > 610 || yellowPlayer.position.y < -600
+                    {
+                        print("4 gameover")
+                        canTouch = false
+                        wrongColor = true
+                        gameover()
+                    }
                 }
                 
             }
@@ -580,11 +524,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for _ in touches
         {
-            //print("touch ended")
-            
             dragging = false
-            
-        
         }
     }
 
